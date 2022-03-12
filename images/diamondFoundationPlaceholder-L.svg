@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="179px" height="250px" viewBox="0 0 179 250" enable-background="new 0 0 179 250" xml:space="preserve">
+<g id="Diamonds" transform="translate(0, 0)">
+	<path fill="#FFFFFF" fill-opacity="0.151" d="M166.1,0c7.1,0,12.9,5.6,12.9,12.6v224.8c0,7-5.8,12.6-12.9,12.6H12.9
+		C5.8,250,0,244.4,0,237.4V12.6C0,5.6,5.8,0,12.9,0H166.1z M166.1,4H12.9C8,4,4,7.9,4,12.6v224.8c0,4.7,4,8.6,8.9,8.6h153.3
+		c4.9,0,8.9-3.9,8.9-8.6V12.6C175,7.9,171,4,166.1,4z"/>
+	<path fill="#A60606" fill-opacity="0.331" d="M89.2,91.7L116,125l-26.9,33.3L63,125L89.2,91.7z"/>
+</g>
+</svg>

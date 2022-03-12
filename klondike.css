@@ -1,0 +1,87 @@
+html, body
+{
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	background: rgb(208	157	97);
+}
+
+#content
+{
+	min-height: 100%;
+	position: relative;
+	background-image: url("images/cherry.jpg");
+	background-size: 425px 425px;
+}
+
+#leftsidebar
+{
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 160px;
+	bottom: 0;
+/*	border: 1px solid white;*/
+}
+
+/* Logo in the top left corner */
+#logo
+{
+	margin: 12px 16px;
+}
+
+/* FeeCell label in the lower-right corner */
+#label
+{
+	float: right;
+}
+
+#info_scroll
+{
+	position: absolute;
+	bottom: 0;
+}
+
+/* Narrow strip along top of screen that includes login information */
+#header
+{
+	position: absolute;
+	left: 160px;
+	top: 0;
+	right: 0;
+	height: 32px;
+/*	border: 1px solid white;*/
+}
+
+#hidden_redeal
+{
+	position: absolute;
+	left: 160px;	/* Width of #leftsidebar */
+	top: 32px;		/* Height of #header */
+	width: 80px;
+	height: 120px;
+/*	border: 1px solid white;*/
+}
+
+/* Region in the center where card game is played */
+#field
+{
+	position: absolute;
+	left: 160px;
+	top: 32px;
+	right: 0;
+	bottom: 0;
+/*	pointer-events: none;*/
+/*	border: 1px solid rgba(0, 255, 0, 1);*/
+}
+
+/* Region in the center where card game is played */
+#basement
+{
+	background-image: url("images/paper_texture_dark.png");
+	overflow: auto;
+	position: absolute;
+	top: 800px;
+	width: 100%;
+/*	border: 1px solid rgba(0, 255, 0, 1);*/
+}

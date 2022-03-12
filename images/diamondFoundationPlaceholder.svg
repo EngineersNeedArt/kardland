@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="179" height="250" viewBox="0, 0, 179, 250">
+  <g id="Diamonds_(dark)" transform="translate(1, 1)">
+    <path d="M165.138,-1 C172.241,-1 178,4.643 178,11.605 L178,236.395 C178,243.357 172.241,249 165.138,249 L11.862,249 C4.759,249 -1,243.357 -1,236.395 L-1,11.605 C-1,4.643 4.759,-1 11.862,-1 L165.138,-1 z M165.138,5 L11.862,5 C8.046,5 5,7.985 5,11.605 L5,236.395 C5,240.015 8.046,243 11.862,243 L165.138,243 C168.954,243 172,240.015 172,236.395 L172,11.605 C172,7.985 168.954,5 165.138,5 z" fill="#000000" fill-opacity="0.198"/>
+    <path d="M88.141,91.391 L115,124.719 L88.141,158 L61.938,124.719 z" fill="#A60606" fill-opacity="0.331"/>
+  </g>
+</svg>

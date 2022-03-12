@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1"
+	 id="svg7288" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:svg="http://www.w3.org/2000/svg"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="178.6px" height="249.4px"
+	 viewBox="0 0 178.6 249.4" enable-background="new 0 0 178.6 249.4" xml:space="preserve">
+<g id="layer1" transform="translate(4.5988467e-6,-740.55055)">
+	<g id="g6708" transform="matrix(0.99553491,0,0,0.99680337,-460.4698,771.39684)">
+		<path id="rect6367-6" fill="#FBFBF6" stroke="#7F7F7F" stroke-width="0.4" d="M471.5-30.5H633c4.7,0,8.5,3.8,8.5,8.5v232.4
+			c0,4.7-3.8,8.5-8.5,8.5H471.5c-4.7,0-8.5-3.8-8.5-8.5V-22C462.9-26.7,466.8-30.5,471.5-30.5z"/>
+		<path id="path6399-9" fill="#D40000" d="M476.7,25.4c-1.7-2.9-3.5-5.6-5.8-8c2.3-2.4,4.1-5.1,5.8-8c1.7,2.9,3.5,5.6,5.8,8
+			C480.3,19.8,478.4,22.6,476.7,25.4z"/>
+		<path id="path6403-1" fill="#D40000" d="M627.7,178.9c-1.7-2.9-3.5-5.6-5.8-8c2.3-2.4,4.1-5.1,5.8-8c1.7,2.9,3.5,5.6,5.8,8
+			C631.3,173.3,629.5,176.1,627.7,178.9z"/>
+		<path id="path6413-1" fill="#D40000" d="M552.2,113.4c-4.1-6.9-8.5-13.5-14-19.2c5.5-5.7,9.8-12.3,14-19.2
+			c4.1,6.9,8.5,13.5,14,19.2C560.7,99.9,556.4,106.5,552.2,113.4z"/>
+		<path id="path41-87-9-4-8" fill="#D40000" d="M468.6,6.9V4.7h2.2l4.6-24.1h2.6L483,4.7h1.7v2.3h-5.9V4.7h1.6L479.8,1h-6l-0.5,3.7
+			h1.6v2.3H468.6z M479.3-1.7l-2.6-12.9l-2.4,12.9H479.3z"/>
+		<path id="path41-8-5-6-1" fill="#D40000" d="M619.7,181.4v2.3h2.2l4.6,24.1h2.6l5.1-24.1h1.7v-2.3h-5.9v2.3h1.6l-0.6,3.7h-6
+			l-0.5-3.7h1.6v-2.3H619.7L619.7,181.4z M630.3,190l-2.6,12.9l-2.4-12.9H630.3z"/>
+	</g>
+</g>
+</svg>
