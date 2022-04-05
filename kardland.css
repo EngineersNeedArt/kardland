@@ -136,6 +136,13 @@ p
     color: #555;
 }
 
+.text_announce
+{
+	font-weight: bold;
+    color: #555;
+	text-align: center;
+}
+
 input[type="text"], input[type="password"]
 {
 	margin: 0;
@@ -202,7 +209,7 @@ input[type="text"], input[type="password"]
     text-decoration: none;
 }
 
-.account_verbage
+.buy_me_a_coffee
 {
 	font-family: arial;
 	font-size: 15px;
