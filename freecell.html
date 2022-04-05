@@ -1,15 +1,9 @@
-<?php
-if (session_id () === "")
-{
-	session_start ();
-}
-?>
 <!DOCTYPE html>
 <html>
 <head>
 <title>Kardland - FreeCell</title>
-<link rel="icon" type="image/png" href="http://YOUR_URL/favicon.png">
-<link rel="icon" type="image/vnd.microsoft.icon" href="http://YOUR_URL/favicon.ico">
+<link rel="icon" type="image/png" href="http://www.kardland.com/favicon.png">
+<link rel="icon" type="image/vnd.microsoft.icon" href="http://www.kardland.com/favicon.ico">
 <link rel="stylesheet" type="text/css" href="kardland.css">
 <link rel="stylesheet" type="text/css" href="freecell.css">
 </head>
@@ -19,7 +13,7 @@ if (session_id () === "")
 <div id="content">
 	
 	<div id="leftsidebar" class="unselectable">
-		<a href="index.php">
+		<a href="index.html">
 		<img src="images/KardLandLogo.svg" width="128" id="logo" draggable="false">
 		</a>
 		<span id="new_button" class="pillbutton unselectable" onclick="new_button_click()" style="position:absolute; bottom:72px; left:26px; width:92px;">New Game</span>
@@ -27,9 +21,9 @@ if (session_id () === "")
 		<img src="images/info_scroll.svg" width="100" id="info_scroll" draggable="false">
 	</div>
 	
-	<div id="header">
+	<!-- <div id="header">
 		<p class="account_verbage"><span id="welcome_block" style="display:none;">Welcome, Guest</span><span id="signin_block"><a href="#" id="sign_in_link">Sign In</a> | <a href="#" id="sign_up_link">Sign Up</a></span></p>
-	</div>
+	</div> -->
 	
 	<div id="field" class="unselectable" style="background:url(images/FreeCellLabel.svg) bottom right no-repeat">
 	</div>
@@ -73,7 +67,7 @@ if (session_id () === "")
 </div>
 
 <!-- Sign In Modal Window -->
-<div id="signin_modal" class="modal">
+<!-- <div id="signin_modal" class="modal">
 	<div class="modal-content" style="width:320px;">
 		<span class="close_modal" id="signin_close">&times;</span>
 		<img src="images/KardLandLogoHorizontal.svg" width="200" style="display:block; margin-left:auto; margin-right:auto; margin-top:8px; padding:8px;">
@@ -90,10 +84,10 @@ if (session_id () === "")
 			<p id="signin_result_label" class="modal_text" style="text-align:center; margin-bottom:20px;"></p>
 			<span id="signin_button" class="pillbutton unselectable" onclick="signin_button_click()" style="width:80px;">Sign In</span>
 	</div>
-</div>
+</div> -->
 
 <!-- Sign Up Modal Window -->
-<div id="signup_modal" class="modal">
+<!-- <div id="signup_modal" class="modal">
 	<div class="modal-content" style="width:400px;">
 		<span class="close_modal" id="signup_close">&times;</span>
 		<img src="images/KardLandLogoHorizontal.svg" width="200" style="display:block; margin-left:auto; margin-right:auto; margin-top:8px; padding:8px;">
@@ -114,7 +108,7 @@ if (session_id () === "")
 			<p id="signup_result_label" class="modal_text" style="text-align:center; margin-bottom:20px;"></p>
 			<span id="signup_button" class="pillbutton unselectable" onclick="signup_button_click()" style="width:80px;">Sign Up</span>
 	</div>
-</div>
+</div> -->
 
 <script type="text/javascript" src="scripts/fiftytwo.js"></script>
 <script type="text/javascript" src="scripts/kardland.js"></script>

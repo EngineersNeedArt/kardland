@@ -2,8 +2,8 @@
 <html>
 <head>
 <title>Kardland - Klondike</title>
-<link rel="icon" type="image/png" href="http://YOUR_URL/favicon.png">
-<link rel="icon" type="image/vnd.microsoft.icon" href="http://YOUR_URL/favicon.ico">
+<link rel="icon" type="image/png" href="http://www.kardland.com/favicon.png">
+<link rel="icon" type="image/vnd.microsoft.icon" href="http://www.kardland.com/favicon.ico">
 <link rel="stylesheet" type="text/css" href="kardland.css">
 <link rel="stylesheet" type="text/css" href="klondike.css">
 </head>
@@ -802,7 +802,7 @@
 			fieldNode.removeChild (fieldNode.firstChild);
 		}
 		
-		get_deck_from_server (begin_game, null);
+		begin_game (null);
 	};
 	
 	// ------------------------------------------------------------------------ undo_button_click ()
@@ -993,32 +993,12 @@
 	
 	// ------------------------------------------------------------------------------- begin_game ()
 	
-	function begin_game (jsonDeck)
-	{
-		var serverDeck = JSON.parse (jsonDeck);
-		var i;
-		var count;
-		var card;
-		
+	function begin_game (dealNumber) {
 		playerHasNotYetMoved = true;
 		
 		// Create deck of cards, shuffle them.
 		var deck = table.newDeck (false);
-		
-		// If we have a matching deck from the server, order the cards.
-		if ((serverDeck) && (serverDeck.length === deck.length))
-		{
-			count = serverDeck.length;
-			for (i = 0; i < count; i += 1)
-			{
-				card = deck[i];
-				card.setIndex (serverDeck[i]);
-			}
-		}
-		else
-		{
-			table.shuffle (deck);
-		}
+		table.shuffle (deck, dealNumber));
 		
 		// Deal all the cards out to the tableau (columns).
 		dealInitialHand (deck);
@@ -1293,10 +1273,7 @@
 		table.cardClicked = cardClicked;
  		table.animationComplete = animationComplete;
 		
-//		get_deck_from_server (begin_game, null);
 		begin_game (null);
-		
-//		displayGameOver ();
 	};
 	
 	</script>

@@ -2416,8 +2416,9 @@ fiftytwo.Table.prototype.newDeck = function (includeJokers)
 };
 
 // -------------------------------------------------------------------------------------- shuffle ()
+// TODO: perform "Windows" shuffle if 'dealNumber' passed in.
 
-fiftytwo.Table.prototype.shuffle = function (cardArray)
+fiftytwo.Table.prototype.shuffle = function (cardArray, dealNumber)
 {
 	"use strict";
 	var index = cardArray.length;
