@@ -25,8 +25,7 @@
 	
 	// ------------------------------------------------------------------------------ layoutTable ()
 	
-	function layoutTable ()
-	{
+	function layoutTable () {
 		"use strict";
 		
 		var stack;
@@ -59,12 +58,11 @@
 		stack = table.addNewStack ('COL7', 'TABLEAU', 7.2, 1.12, 0.0, 0.25);
 		stack.setVSpreadFaceDown (0.15);
 		stack.setPlaceholderImage ('images/kingFoundationPlaceholder.svg');
-	};
+	}
 	
 	// -------------------------------------------------------------------------- dealInitialHand ()
 	
-	function dealInitialHand (cards)
-	{
+	function dealInitialHand (cards) {
 		"use strict";
 		var i;
 		var n;
@@ -72,10 +70,8 @@
 		var card;
 		
 		// Deal out the cards to the tableau in the familiar solitaire pattern.
-		for (i = 0; i < 7; i++)
-		{
-			for (n = i; n < 7; n++)
-			{
+		for (i = 0; i < 7; i++) {
+			for (n = i; n < 7; n++) {
 				column = n + 1;
 				card = cards.shift ();
 				
@@ -86,65 +82,55 @@
 		}
 		
 		// Deal the remaining cards face down to the stock pile.
-		for (i = 0; i < 24; i++)
-		{
+		for (i = 0; i < 24; i++) {
 			card = cards.shift ();
 			card.setFaceUp (false);
 			table.dealCardToStack (card, table.stackWithIdentifier ('STOCK'));
 		}
-	};
+	}
 	
 	// ----------------------------------------------------------------------- wasCardAutoPutAway ()
 	
-	function wasCardAutoPutAway (card)
-	{
+	function wasCardAutoPutAway (card) {
 		var putAway = false;
 		
-		for (var i = 0, count = autoPutAwayCards.length; i < count; i += 1)
-		{
-			if (autoPutAwayCards [i] === card)
-			{
+		for (var i = 0, count = autoPutAwayCards.length; i < count; i += 1) {
+			if (autoPutAwayCards [i] === card) {
 				putAway = true;
 				break;
 			}
 		}
 		
 		return putAway;
-	};
+	}
 	
 	// --------------------------------------------------------------- indicateCardWasAutoPutAway ()
 	
-	function indicateCardWasAutoPutAway (card)
-	{
-		if (!wasCardAutoPutAway (card))
-		{
+	function indicateCardWasAutoPutAway (card) {
+		if (!wasCardAutoPutAway (card)) {
 			autoPutAwayCards.push (card);
 		}
-	};
+	}
 	
 	// -------------------------------------------------------------------------- cardsAreOrdered ()
 	
-	function cardsAreOrdered (stack, startingAtIndex)
-	{
+	function cardsAreOrdered (stack, startingAtIndex) {
 		var cardTesting = stack.cardAtIndex (startingAtIndex);
 		var followingCard;
 		var ordered = true;
 		
-		for (var i = startingAtIndex + 1, cardCount = stack.numberOfCards; i < cardCount; i += 1)
-		{
+		for (var i = startingAtIndex + 1, cardCount = stack.numberOfCards; i < cardCount; i += 1) {
 			// The card following cardTesting.
 			followingCard = stack.cardAtIndex (i);
 			
 			// The card rank must increase exactly by one.
-			if (cardTesting.rank !== followingCard.rank + 1)
-			{
+			if (cardTesting.rank !== followingCard.rank + 1) {
 				ordered = false;
 				break;
 			}
 			
 			// Can't drag if the color sequence of the stack do not alternate.
-			if (cardTesting.compareColorWithCard (followingCard) !== cardColorComparison.OPPOSITE)
-			{
+			if (cardTesting.compareColorWithCard (followingCard) !== cardColorComparison.OPPOSITE) {
 				ordered = false;
 				break;
 			}
@@ -154,38 +140,34 @@
 		}
 		
 		return ordered;
-	};
+	}
 	
 	// --------------------------------------------------------------------- canDragCardFromStack ()
 	
-	function canDragCardFromStack (card, stack)
-	{
+	function canDragCardFromStack (card, stack) {
 		"use strict";
 		var canDrag = false;
 		
-		if (card.faceUp)
-		{
+		if (card.faceUp) {
 			canDrag = true;
 		}
 		
 		return canDrag;
-	};
+	}
 	
 	// -------------------------------------------------------------- foundationAndCardSuitsMatch ()
 	
-	function foundationAndCardSuitsMatch (stack, card)
-	{
+	function foundationAndCardSuitsMatch (stack, card) {
 		"use strict";
 		return (((stack.identifier === 'DIAMONDS') && (card.suit === cardSuit.DIAMONDS)) || 
 		((stack.identifier === 'CLUBS') && (card.suit === cardSuit.CLUBS)) || 
 		((stack.identifier === 'HEARTS') && (card.suit === cardSuit.HEARTS)) || 
 		((stack.identifier === 'SPADES') && (card.suit === cardSuit.SPADES)));
-	};
+	}
 	
 	// ------------------------------------------------------------- canDragStackFromStackToStack ()
 	
-	function canDragStackFromStackToStack (stack, srcStack, destStack)
-	{
+	function canDragStackFromStackToStack (stack, srcStack, destStack) {
 		"use strict";
 		var canDrag = false;
 		var topDestCard;
@@ -198,44 +180,33 @@
 		bottomSrcCard = stack.cardAtIndex (0);
 		
 		// Do we have a top card (if not, we're dragging to an empty stack)?
-		if (topDestCard)
-		{
+		if (topDestCard) {
 			// If there is a card (the destination stack is not empty).
 			// Handle the case when the destination stack is the foundation.
-			if (destStack.role === 'FOUNDATION')
-			{
+			if (destStack.role === 'FOUNDATION') {
 				// The card being dragged must be one rank higher than 
 				// the top card on the foundation, and match its suit.
 				if ((bottomSrcCard.rank === (topDestCard.rank + 1)) && 
 						(bottomSrcCard.suit === topDestCard.suit) && 
-						(stack.numberOfCards === 1))
-				{
+						(stack.numberOfCards === 1)) {
 					canDrag = true;
 				}
-			}
-			else if (destStack.role === 'TABLEAU')
-			{
+			} else if (destStack.role === 'TABLEAU') {
 				// If the stack is the tableau, the rank of the card being
 				// dragged must be one smaller and opposite in color.
 				canDrag = (((bottomSrcCard.rank + 1) == topDestCard.rank) && 
 						(bottomSrcCard.compareColorWithCard (topDestCard) === cardColorComparison.OPPOSITE));
 			}
-		}
-		else
-		{
+		} else {
 			// Empty stack. Allow an ace only on foundations, only a
 			// King may be placed on empty tableua columns.
-			if (destStack.role === 'FOUNDATION')
-			{
+			if (destStack.role === 'FOUNDATION') {
 				// Foundation - since no card on foundation, card must be an Ace.
 				if ((bottomSrcCard.rank === 1) && (stack.numberOfCards === 1) && 
-						(foundationAndCardSuitsMatch (destStack, bottomSrcCard)))
-				{
+						(foundationAndCardSuitsMatch (destStack, bottomSrcCard))) {
 					canDrag = true;
 				}
-			}
-			else
-			{
+			} else {
 				// Tableau - since no card on tableau, only a King allowed
 				// (unless a restricted drag).
 				canDrag = bottomSrcCard.rank === 13;
@@ -243,34 +214,28 @@
 		}
 		
 		return canDrag;
-	};
+	}
 	
 	// -------------------------------------------------------------- foundationShouldTakeCardAll ()
 	
-	function foundationShouldTakeCardAll (card, table)
-	{
+	function foundationShouldTakeCardAll (card, table) {
 		"use strict";
 		var stackToPutAwayTo = null;
 		var foundationStacks = table.stacksWithRole ('FOUNDATION');
 		var topCard;
 		
 		// Walk the foundations looking for a match.
-		for (var i = 0, count = foundationStacks.length; i < count; i += 1)
-		{
+		for (var i = 0, count = foundationStacks.length; i < count; i += 1) {
 			// Top card of foundation.
 			topCard = foundationStacks[i].topCard ();
 			
-			if (!topCard)
-			{
+			if (!topCard) {
 				// Foundation is empty (no top card). Only an Ace may be placed.
-				if ((card.suit === i) && (card.rank === 1))
-				{
+				if ((card.suit === i) && (card.rank === 1)) {
 					stackToPutAwayTo = foundationStacks[i];
 					break;
 				}
-			}
-			else if ((card.suit === topCard.suit) && (card.rank === (topCard.rank + 1)))
-			{
+			} else if ((card.suit === topCard.suit) && (card.rank === (topCard.rank + 1))) {
 				// Put away any card that it is legal to put away.
 				stackToPutAwayTo = foundationStacks[i];
 				break;
@@ -278,12 +243,11 @@
 		}
 		
 		return stackToPutAwayTo;
-	};
+	}
 	
 	// ------------------------------------------------------------ foundationShouldTakeCardSmart ()
 	
-	function foundationShouldTakeCardSmart (card, table)
-	{
+	function foundationShouldTakeCardSmart (card, table) {
 		"use strict";
 		var stackToPutAwayTo = null;
 		var lowestRedFoundationRank = 13;
@@ -296,8 +260,7 @@
 		var oppositeFoundationCard;
 		
 		// Walk foundations finding the lowest black ranking card and lowest red ranking cards.
-		for (i = 0; i < count; i += 1)
-		{
+		for (i = 0; i < count; i += 1) {
 			// Foundation stack.
 			stack = foundationStacks[i];
 			
@@ -305,36 +268,26 @@
 			topCard = stack.topCard ();
 			
 			// Compare.
-			if (!topCard)
-			{
+			if (!topCard) {
 				// If no card on foundation, this becomes (zero) the lowest card of the given color.
-				if ((stack.identifier === 'DIAMONDS') || (stack.identifier === 'HEARTS'))
-				{
+				if ((stack.identifier === 'DIAMONDS') || (stack.identifier === 'HEARTS')) {
 					lowestRedFoundationRank = 0;
-				}
-				else
-				{
+				} else {
 					lowestBlackFoundationRank = 0;
 				}
-			}
-			else
-			{
+			} else {
 				if ((((stack.identifier === 'DIAMONDS') || (stack.identifier === 'HEARTS'))) && 
-						(topCard.rank < lowestRedFoundationRank))
-				{
+						(topCard.rank < lowestRedFoundationRank)) {
 					lowestRedFoundationRank = topCard.rank;
-				}
-				else if ((((stack.identifier === 'CLUBS') || (stack.identifier === 'SPADES'))) && 
-						(topCard.rank < lowestBlackFoundationRank))
-				{
+				} else if ((((stack.identifier === 'CLUBS') || (stack.identifier === 'SPADES'))) && 
+						(topCard.rank < lowestBlackFoundationRank)) {
 					lowestBlackFoundationRank = topCard.rank;
 				}
 			}
 		}
 		
 		// Walk the foundations looking for a match.
-		for (i = 0; i < count; i += 1)
-		{
+		for (i = 0; i < count; i += 1) {
 			// Foundation stack.
 			stack = foundationStacks[i];
 			
@@ -342,76 +295,56 @@
 			topCard = stack.topCard ();
 			
 			// Compare.
-			if (!topCard)
-			{
+			if (!topCard) {
 				// Foundation is empty (no top card). Only an Ace may be placed.
-				if ((card.rank === 1) && (foundationAndCardSuitsMatch (stack, card)))
-				{
+				if ((card.rank === 1) && (foundationAndCardSuitsMatch (stack, card))) {
 					stackToPutAwayTo = stack;
 					break;
 				}
-			}
-			else if ((card.suit === topCard.suit) && (card.rank === (topCard.rank + 1)))
-			{
+			} else if ((card.suit === topCard.suit) && (card.rank === (topCard.rank + 1))) {
 				// First pass: card must ranked one greater than the top card of 
 				// the foundation correspoding to card's suit.
 				// Second pass: two's are always put up (Microsoft way).
-				if (card.rank <= 2)
-				{
+				if (card.rank <= 2) {
 					stackToPutAwayTo = stack;
 				}
 				
 				// Third pass: put up if both opposite color foundations are built 
 				// up to within two of the card's rank (also Microsoft way).
 				if (((card.suit === cardSuit.DIAMONDS) || (card.suit === cardSuit.HEARTS)) && 
-						(card.rank <= (lowestBlackFoundationRank + 1)))
-				{
+						(card.rank <= (lowestBlackFoundationRank + 1))) {
 					stackToPutAwayTo = stack;
-				}
-				else if (((card.suit === cardSuit.CLUBS) || (card.suit === cardSuit.SPADES)) && 
-						(card.rank <= (lowestRedFoundationRank + 1)))
-				{
+				} else if (((card.suit === cardSuit.CLUBS) || (card.suit === cardSuit.SPADES)) && 
+						(card.rank <= (lowestRedFoundationRank + 1))) {
 					stackToPutAwayTo = stack;
 				}
 				
 				// Fourth pass: there is one case we will also allow, if card ranks 
 				// is within 2 greater than both the opposite color's foundation ranks 
 				// AND within 3 of its same-color-opposite-suit foundation card (NETCell way).
-				if (!stackToPutAwayTo)
-				{
-					if ((card.suit === cardSuit.DIAMONDS) && (card.rank <= (lowestBlackFoundationRank + 2)))
-					{
+				if (!stackToPutAwayTo) {
+					if ((card.suit === cardSuit.DIAMONDS) && (card.rank <= (lowestBlackFoundationRank + 2))) {
 						// Top card of 'opposite' (Hearts) foundation (same color, other suit).
 						oppositeFoundationCard = foundationStacks[2].topCard ();
-						if ((oppositeFoundationCard) && (card.rank <= (oppositeFoundationCard.rank + 3)))
-						{
+						if ((oppositeFoundationCard) && (card.rank <= (oppositeFoundationCard.rank + 3))) {
 							stackToPutAwayTo = stack;
 						}
-					}
-					else if ((card.suit === cardSuit.CLUBS) && (card.rank <= (lowestRedFoundationRank + 2)))
-					{
+					} else if ((card.suit === cardSuit.CLUBS) && (card.rank <= (lowestRedFoundationRank + 2))) {
 						// Top card of 'opposite' (Spades) foundation (same color, other suit).
 						oppositeFoundationCard = foundationStacks[3].topCard ();
-						if ((oppositeFoundationCard) && (card.rank <= (oppositeFoundationCard.rank + 3)))
-						{
+						if ((oppositeFoundationCard) && (card.rank <= (oppositeFoundationCard.rank + 3))) {
 							stackToPutAwayTo = stack;
 						}
-					}
-					else if ((card.suit === cardSuit.HEARTS) && (card.rank <= (lowestBlackFoundationRank + 2)))
-					{
+					} else if ((card.suit === cardSuit.HEARTS) && (card.rank <= (lowestBlackFoundationRank + 2))) {
 						// Top card of 'opposite' (Diamonds) foundation (same color, other suit).
 						oppositeFoundationCard = foundationStacks[0].topCard ();
-						if ((oppositeFoundationCard) && (card.rank <= (oppositeFoundationCard.rank + 3)))
-						{
+						if ((oppositeFoundationCard) && (card.rank <= (oppositeFoundationCard.rank + 3))) {
 							stackToPutAwayTo = stack;
 						}
-					}
-					else if ((card.suit === cardSuit.SPADES) && (card.rank <= (lowestRedFoundationRank + 2)))
-					{
+					} else if ((card.suit === cardSuit.SPADES) && (card.rank <= (lowestRedFoundationRank + 2))) {
 						// Top card of 'opposite' (Clubs) foundation (same color, other suit).
 						oppositeFoundationCard = foundationStacks[1].topCard ();
-						if ((oppositeFoundationCard) && (card.rank <= (oppositeFoundationCard.rank + 3)))
-						{
+						if ((oppositeFoundationCard) && (card.rank <= (oppositeFoundationCard.rank + 3))) {
 							stackToPutAwayTo = stack;
 						}
 					}
@@ -420,12 +353,11 @@
 		}
 		
 		return stackToPutAwayTo;
-	};
+	}
 	
 	// ------------------------------------------------------------- determineIfCardsCanBePutAway ()
 	
-	function determineIfCardsCanBePutAway (table)
-	{
+	function determineIfCardsCanBePutAway (table) {
 		"use strict";
 		var didPutAwayCard;
 		var columnStacks = table.stacksWithRole ('TABLEAU');
@@ -437,35 +369,30 @@
 		var destinationStack;
 		var card;
 		
-		do
-		{
+		do {
 			// Indicate no card found at this point.
 			didPutAwayCard = false;
 			
 			// Walk the tableaus, examining the top cards of eack stack.
 			count = columnStacks.length;
-			for (i = 0; i < count; i += 1)
-			{
+			for (i = 0; i < count; i += 1) {
 				// Column stack.
 				stack = columnStacks[i];
 				
 				// Card that is on top of stack.
 				topCard = stack.topCard ();
-				if (!topCard)
-				{
+				if (!topCard) {
 					continue;
 				}
 				
 				// If card was worried back (or Undone) the player doesn't want us moving the card.
-				if (wasCardAutoPutAway (topCard))
-				{
+				if (wasCardAutoPutAway (topCard)) {
 					continue;
 				}
 				
 				// Determine if top card of tableau has a foundation it should be put-away to.
 				destinationStack = foundationShouldTakeCardSmart (topCard, table);
-				if (destinationStack)
-				{
+				if (destinationStack) {
 					// Move the card from the tableau stack to the foundation stack.
 					table.moveTopCardFromStackToStack (stack, destinationStack, true);
 					indicateCardWasAutoPutAway (topCard);
@@ -473,23 +400,19 @@
 					
 					// Flip card beneath.
 					card = stack.topCard();
-					if ((card) && (!card.faceUp))
-					{
+					if ((card) && (!card.faceUp)) {
 						table.flipTopCard (stack, true);
 					}
 				}
 			}
 			
 			// Examine the waste stack..
-			if ((cardsToDeal === 1) || (table.stackWithIdentifier ('STOCK').numberOfCards === 0))
-			{
+			if ((cardsToDeal === 1) || (table.stackWithIdentifier ('STOCK').numberOfCards === 0)) {
 				topCard = wasteStack.topCard ();
-				if ((topCard) && (!wasCardAutoPutAway (topCard)))
-				{
+				if ((topCard) && (!wasCardAutoPutAway (topCard))) {
 					// Determine if top card of tableau has a foundation it should be put-away to.
 					destinationStack = foundationShouldTakeCardSmart (topCard, table);
-					if (destinationStack)
-					{
+					if (destinationStack) {
 						// Move the card from the waste stack to the foundation stack.
 						table.moveTopCardFromStackToStack (wasteStack, destinationStack, true);
 						indicateCardWasAutoPutAway (topCard);
@@ -497,43 +420,35 @@
 					}
 				}
 			}
-		}
-		while (didPutAwayCard);
+		} while (didPutAwayCard);
 	}
 	
 	// ---------------------------------------------------------------------- flipCardsIfPossible ()
 	
-	function flipCardsIfPossible (table)
-	{
+	function flipCardsIfPossible (table) {
 		"use strict";
 		var columnStacks = table.stacksWithRole ('TABLEAU');
 		var count = columnStacks.length;
 		var i;
 		var card;
 		
-		for (i = 0; i < count; i += 1)
-		{
+		for (i = 0; i < count; i += 1) {
 			card = columnStacks[i].topCard();
-			if ((card) && (!card.faceUp))
-			{
+			if ((card) && (!card.faceUp)) {
 				table.flipTopCard (columnStacks[i], true);
 			}
 		}
-	};
+	}
 	
 	// ------------------------------------------------------------------------ evaulateUndoState ()
 	
-	function evaulateUndoState ()
-	{
+	function evaulateUndoState () {
 		var undoButton = document.getElementById ('undo_button');
 		
-		if (table.canUndo ())
-		{
+		if (table.canUndo ()) {
 			undoButton.style.color = '#000000';
 			undoButton.className = "pillbutton unselectable";
-		}
-		else
-		{
+		} else {
 			undoButton.style.color = '#999999';
 			undoButton.className = "pillbutton unselectable nohover";
 		}
@@ -541,16 +456,13 @@
 	
 	// ------------------------------------------------------------------------ cardDragCompleted ()
 	
-	function cardDragCompleted (table, dragged)
-	{
+	function cardDragCompleted (table, dragged) {
 		"use strict";
 		
-		if (dragged)
-		{
-			if (playerHasNotYetMoved)
-			{
+		if (dragged) {
+			if (playerHasNotYetMoved) {
 				playerHasNotYetMoved = false;
-				negotiate_server_played_klondike ();
+				indicate_played_klondike ();
 			}
 			
 			flipCardsIfPossible (table);
@@ -560,8 +472,7 @@
 	
 	// ------------------------------------------------------------------------ cardDoubleClicked ()
 	
-	function cardDoubleClicked (card, stackContaining)
-	{
+	function cardDoubleClicked (card, stackContaining) {
 		"use strict";
 		var destinationStack = null;
 		var cardMoved = false;
@@ -572,41 +483,34 @@
 		var emptyTableauStack = null;
 		
 		// Only double-clicks on top card are allowed.
-		if (stackContaining.topCard () !== card)
-		{
+		if (stackContaining.topCard () !== card) {
 			return;
 		}
 		
 		// Disallow double-clicking the foundation (card will just get put up again).
-		if (stackContaining.role === 'FOUNDATION')
-		{
+		if (stackContaining.role === 'FOUNDATION') {
 			return;
 		}
 		
 		// Check first to see if card can be put up in the foundation.
 		destinationStack = foundationShouldTakeCardSmart (card, table);
-		if (destinationStack)
-		{
+		if (destinationStack) {
 			table.moveTopCardFromStackToStack (stackContaining, destinationStack, true);
 			cardMoved = true;
 		}
 		
-		if (!cardMoved)
-		{
+		if (!cardMoved) {
 			// Walk the tableaus, examining the top cards of eack stack.
 			count = columnStacks.length;
-			for (i = 0; i < count; i += 1)
-			{
+			for (i = 0; i < count; i += 1) {
 				// Column stack.
 				destinationStack = columnStacks[i];
 				
 				// Card that is on top of stack.
 				topCard = destinationStack.topCard ();
-				if (!topCard)
-				{
+				if (!topCard) {
 					// Note empty tableau column, we may use it later.
-					if (!emptyTableauStack)
-					{
+					if (!emptyTableauStack) {
 						emptyTableauStack = destinationStack;
 					}
 					continue;
@@ -615,8 +519,7 @@
 				// Test if the top card is of the opposite color and if 
 				// the rank is one larger than the card double-clicked on.
 				if ((card.compareColorWithCard (topCard) === cardColorComparison.OPPOSITE) && 
-						(topCard.rank === (card.rank + 1)))
-				{
+						(topCard.rank === (card.rank + 1))) {
 					table.moveTopCardFromStackToStack (stackContaining, destinationStack, true);
 					cardMoved = true;
 					break;
@@ -624,11 +527,9 @@
 			}
 		}
 		
-		if (!cardMoved)
-		{
+		if (!cardMoved) {
 			// We make a special case for Kings: if we have an empty tableau, move it.
-			if ((card.rank === 13) && (emptyTableauStack))
-			{
+			if ((card.rank === 13) && (emptyTableauStack)) {
 				table.moveTopCardFromStackToStack (stackContaining, emptyTableauStack, true);
 				cardMoved = true;
 			}
@@ -636,139 +537,87 @@
 		
 		// Finally, at this point let's relax the "Smart" guidance and 
 		// see if the Foundation will accomodate the card after all.
-		if (!cardMoved)
-		{
+		if (!cardMoved) {
 			destinationStack = foundationShouldTakeCardAll (card, table);
-			if (destinationStack)
-			{
+			if (destinationStack) {
 				table.moveTopCardFromStackToStack (stackContaining, destinationStack, true);
 				cardMoved = true;
 			}
 		}
 		
-		if (cardMoved)
-		{
-			if (playerHasNotYetMoved)
-			{
+		if (cardMoved) {
+			if (playerHasNotYetMoved) {
 				playerHasNotYetMoved = false;
-				negotiate_server_played_klondike ();
+				indicate_played_klondike ();
 			}
 			
 			flipCardsIfPossible (table);
 			evaluate_table ();
 		}
-	};
+	}
 	
 	// ------------------------------------------------------------------------------ cardClicked ()
 	
-	function cardClicked (card, stackContaining)
-	{
+	function cardClicked (card, stackContaining) {
 		"use strict";
 		
-		if (stackContaining.identifier === 'STOCK')
-		{
+		if (stackContaining.identifier === 'STOCK') {
 			deal_button_click ();
 		}
 	}
 	
-	// --------------------------------------------------------- negotiate_server_played_klondike ()
+	// --------------------------------------------------------------------- indicate_played_klondike ()
 	
-	function negotiate_server_played_klondike ()
-	{
-		var success = false;
-		var username = sessionStorage.getItem ('username');
-		var password = sessionStorage.getItem ('password');
-		
-		if ((username) && (password))
-		{
-			post_to_server ('https://api.letswander.com/kardland.php?action=bump_klondike3_played', function (response, message)
-			{
-				if ((response) && (response.loggedin))
-				{
-					success = true;
-				}
-				else
-				{
-					login_to_server (username, password, function (response, message)
-					{
-						if ((response) && (response.loggedin))
-						{
-							post_to_server ('https://api.letswander.com/kardland.php?action=bump_klondike3_played', function (response, message)
-							{
-								if ((response) && (response.loggedin))
-								{
-									success = true;
-								}
-								else
-								{
-									console.log ('Unable to talk to server!');
-								}
-							});
-						}
-						else
-						{
-							console.log ('Failed re-login: ' + response.message);
-						}
-					});
-				}
-			});
+	function indicate_played_klondike () {
+		// Load and store games played and won from local storage.
+		var gamesPlayed = +(localStorage.getItem ("KARDLAND0_KLONDIKE_PLAYED"));
+		if (gamesPlayed === null) {
+			gamesPlayed = 0;
 		}
+		gamesPlayed += 1;
+		localStorage.setItem ("KARDLAND0_KLONDIKE_PLAYED", gamesPlayed);
+	}
+
+	// ------------------------------------------------------------------------ indicate_won_klondike ()
+
+	function indicate_won_klondike () {
+		var gamesWon = +(localStorage.getItem ("KARDLAND0_KLONDIKE_WON"));
+		if (gamesWon === null) {
+			gamesWon = 0;
+		}
+		gamesWon += 1;
+		localStorage.setItem ("KARDLAND0_KLONDIKE_WON", gamesWon);
 		
-		return success;
-	};
-	
+		return gamesWon;
+	}
+
 	// -------------------------------------------------------------------------- displayGameOver ()
 	
-	function displayGameOver ()
-	{
-		var username = sessionStorage.getItem ('username');
-		var password = sessionStorage.getItem ('password');
-		
-		if ((username) && (password))
-		{
-			tell_server_won_klondike3 (function (response, message)
-			{
-				if (response.loggedin)
-				{
-					document.getElementById ('gameover_played').innerHTML = response.played;
-					document.getElementById ('gameover_won').innerHTML = response.won;
-				}
-				else
-				{
-					if (response)
-					{
-						console.log ('tell_server_won_klondike3() failed; ' + response.message);
-					}
-					else
-					{
-						console.log ('tell_server_won_klondike3() failed; ' + message);
-					}
-				}
-			});
-		}
-		else
-		{
-			document.getElementById ('gameover_played').innerHTML = '(not signed in)';
-			document.getElementById ('gameover_won').innerHTML = '(not signed in)';
+	function displayGameOver () {
+		// Load and store games played and won from local storage.
+		var gamesPlayed = +(localStorage.getItem ("KARDLAND0_KLONDIKE_PLAYED"));
+		if (gamesPlayed === null) {
+			gamesPlayed = 0;
 		}
 		
+		var gamesWon = indicate_won_klondike ();
+		
+		document.getElementById ('gameover_played').innerHTML = gamesPlayed;
+		document.getElementById ('gameover_won').innerHTML = gamesWon;
 		document.getElementById ('gameover_modal').style.display = "block";
-	};
+	}
 	
 	// ------------------------------------------------------------------------ animationComplete ()
 	
-	function animationComplete (table)
-	{
-		if (gameOver)
-		{
+	function animationComplete (table) {
+		if (gameOver) {
 			setTimeout (displayGameOver, 750);
 		}
 	}
 	
 	// -------------------------------------------------------------------- evaluate_if_game_over ()
 	
-	function evaluate_if_game_over ()
-	{
+	function evaluate_if_game_over () {
 		var foundationStacks = table.stacksWithRole ('FOUNDATION');
 		var i;
 		var count = foundationStacks.length;
@@ -776,220 +625,111 @@
 		
 		// Walk all the foundations and count the cards on the stack. Anything less than 13 means
 		// we are not done yet.
-		for (i = 0; i < count; i += 1)
-		{
-			if (foundationStacks[i].numberOfCards < 13)
-			{
+		for (i = 0; i < count; i += 1) {
+			if (foundationStacks[i].numberOfCards < 13) {
 				gameOver = false;
 				break;
 			}
 		}
 		
 		return gameOver;
-	};
+	}
 	
 	// ------------------------------------------------------------------------- new_button_click ()
 	
-	function new_button_click ()
-	{
+	function new_button_click () {
 		gameOver = false;
 		table.reset ();
 		
 		// Clear the cards from the DOM.
 		var fieldNode = document.getElementById ('field');
-		while (fieldNode.firstChild)
-		{
+		while (fieldNode.firstChild) {
 			fieldNode.removeChild (fieldNode.firstChild);
 		}
 		
 		begin_game (null);
-	};
+	}
 	
 	// ------------------------------------------------------------------------ undo_button_click ()
 	
-	function undo_button_click ()
-	{
+	function undo_button_click () {
 		table.undo ();
 		evaulateUndoState ();
-	};
+	}
 	
 	// ------------------------------------------------------------------------ deal_button_click ()
 	
-	function deal_button_click ()
-	{
+	function deal_button_click () {
 		var dealStack = table.stackWithIdentifier ('STOCK');
 		var wasteStack = table.stackWithIdentifier ('WASTE');
 		var count;
 		var cards;
 		
 		// See if there are any cards to deal.
-		if (dealStack.numberOfCards === 0)
-		{
+		if (dealStack.numberOfCards === 0) {
 			count = wasteStack.numberOfCards;
-			do
-			{
+			do {
 				table.moveTopCardFromStackToStackAndFlip (wasteStack, dealStack, false);
 				count = count - 1;
-			}
-			while (count > 0);
-		}
-		else
-		{
+			} while (count > 0);
+		} else {
 			count = dealStack.numberOfCards;
-			if (count > cardsToDeal)
-			{
+			if (count > cardsToDeal) {
 				count = cardsToDeal;
 			}
 			
-			do
-			{
+			do {
 				table.moveTopCardFromStackToStackAndFlip (dealStack, wasteStack, true);
 				count = count - 1;
-			}
-			while (count > 0);
+			} while (count > 0);
 		}
 		
 		evaluate_table ();
-	};
+	}
 	
 	// ---------------------------------------------------------------------- size_the_card_table ()
 	
-	function size_the_card_table ()
-	{
+	function size_the_card_table () {
 		var hiddenRedealElement;
 		
 		fieldWidth = document.getElementById ('field').offsetWidth;
-//		console.log ('fieldWidth=' + fieldWidth);
 		
-		if (fieldWidth < 880)
-		{
+		if (fieldWidth < 880) {
 			table.setCardWidth (72);
-		}
-		else if (fieldWidth < 960)
-		{
+		} else if (fieldWidth < 960) {
 			table.setCardWidth (86);
-		}
-		else
-		{
+		} else {
 			table.setCardWidth (100);
 		}
 		
 		hiddenRedealElement = document.getElementById ('hidden_redeal');
 		hiddenRedealElement.style.width = table.cardWidth + 'px';
 		hiddenRedealElement.style.height = table.cardHeight + 'px';
-	};
+	}
 	
 	// ------------------------------------------------------------------------ size_the_basement ()
 	
-	function size_the_basement ()
-	{
+	function size_the_basement () {
 		basement = document.getElementById ("basement");
-		if (basement)
-		{
+		if (basement) {
 			basement.style.top = window.innerHeight + 'px';
 		}
-	};
+	}
 	
 	// --------------------------------------------------------------------------- window_resized ()
 	
-	function window_resized ()
-	{
+	function window_resized () {
 		size_the_card_table ();
 		size_the_basement ();
-	};
+	}
 	
 	// --------------------------------------------------------------------------- evaluate_table ()
 	
-	function evaluate_table ()
-	{
+	function evaluate_table () {
 		determineIfCardsCanBePutAway (table);
 		evaulateUndoState ();
 		gameOver = evaluate_if_game_over ();
-	};
-	
-	// --------------------------------------------------------------------- get_deck_from_server ()
-	
-	function get_deck_from_server (completion, seed)
-	{
-		request = new ajaxRequest ();
-		if (seed)
-		{
-			request.open ('POST', 'https://api.letswander.com/freecell.php?seed=' + seed, true);
-		}
-		else
-		{
-			request.open ('POST', 'https://api.letswander.com/freecell.php', true);
-		}
-		request.setRequestHeader ('Content-type', 'application/x-www-form-urlencoded');
-		request.onreadystatechange = function()
-		{
-			if (this.readyState == 4)		// 4 = completed
-			{
-				if (this.status == 200)		// 200 = no error
-				{
-					if (this.responseText)
-					{
-						// Success. Call completion function with the response.
-						completion (this.responseText);
-					}
-					else 
-					{
-						// Fail. Call completion function with no response.
-						console.log ('Ajax error: No data received');
-						completion (null);
-					}
-				}
-				else
-				{
-					// Fail. Call completion function with no response.
-					console.log ('Ajax error: ' + this.statusText);
-					completion (null);
-				}
-			}
-		}
-		
-		request.send ();
-	};
-	
-	// ---------------------------------------------------------------- tell_server_won_klondike3 ()
-	
-	function tell_server_won_klondike3 (completion)
-	{
-		var username;
-		var password;
-		
-		post_to_server ('https://api.letswander.com/kardland.php?action=temp_bump_klondike3_won', function (response, message)
-		{
-			if (response.loggedin)
-			{
-				completion (response, message);
-			}
-			else
-			{
-				username = sessionStorage.getItem ('username');
-				password = sessionStorage.getItem ('password');
-				if ((username) && (password))
-				{
-					console.log ('Server session timed out, attempting to log back in: ' + username + '/' + password);
-					login_to_server (username, password, function (response, message)
-					{
-						if (response.loggedin)
-						{
-							post_to_server ('https://api.letswander.com/kardland.php?action=temp_bump_klondike3_won', completion);
-						}
-						else
-						{
-							completion (response, 'Failed to re-log in to server.');
-						}
-					});
-				}
-				else
-				{
-					completion (null, 'Failed to log in to server; no name or password.');
-				}
-			}
-		});
-	};
+	}
 	
 	// ------------------------------------------------------------------------------- begin_game ()
 	
@@ -998,227 +738,30 @@
 		
 		// Create deck of cards, shuffle them.
 		var deck = table.newDeck (false);
-		table.shuffle (deck, dealNumber));
+		table.shuffle (deck, dealNumber);
 		
 		// Deal all the cards out to the tableau (columns).
 		dealInitialHand (deck);
 		
-		table.performFunctionWhenLoadingComplete (function ()
-		{
+		table.performFunctionWhenLoadingComplete (function () {
 			// Load up div elements in html (display the card table).
 			table.appendCardElementsToElement (document.getElementById ('field'));
 			setTimeout (evaluate_table, 1000);
 		});
-		
 	}
-	
-	// ----------------------------------------------------------------------------- signin_click ()
-	
-	function signin_click ()
-	{
-		document.getElementById ('signin_modal').style.display = "block";
-	};
-	
-	// ---------------------------------------------------------------------- signin_button_click ()
-	
-	function signin_button_click ()
-	{
-		var usernameLabel = document.getElementById ('signin_username_label');
-		var usernameInput = document.getElementById ('signin_username_input');
-		var passwordLabel = document.getElementById ('signin_password_label');
-		var passwordInput = document.getElementById ('signin_password_input');
-		var resultLabel = document.getElementById ('signin_result_label');
-		var dismiss = true;
-		
-		// Reset to default (non-error) state.
-		usernameLabel.innerHTML = 'Name:';
-		usernameLabel.className = 'modal_text';
-		passwordLabel.innerHTML = 'Password:';
-		passwordLabel.className = 'modal_text';
-		resultLabel.innerHTML = '';
-		resultLabel.className = 'modal_text';
-		
-		if (usernameInput.value == '')
-		{
-			// Display as error.
-			usernameLabel.innerHTML = 'Enter your name:';
-			usernameLabel.className = 'text_error';
-		}
-		else
-		{
-			// Display as correct.
-			usernameLabel.innerHTML = 'Name:';
-			usernameLabel.className = 'modal_text';
-			
-			if (passwordInput.value == '')
-			{
-				// Display as error.
-				passwordLabel.innerHTML = 'Enter your password:';
-				passwordLabel.className = 'text_error';
-			}
-			else
-			{
-				// Display as correct.
-				passwordLabel.innerHTML = 'Password:';
-				passwordLabel.className = 'modal_text';
-				
-				// Attempt to log in to account.
-				console.log ('Attempting to log in: ' + usernameInput.value + '/' + passwordInput.value);
-				login_to_server (usernameInput.value, passwordInput.value, function (response, message)
-				{
-					if ((response) && (response.loggedin))
-					{
-						display_username ();
-						resultLabel.innerHTML = 'Welcome, ' + sessionStorage.getItem ('username');
-						resultLabel.className = 'modal_text';
-					}
-					else
-					{
-						resultLabel.innerHTML = 'Error signing in: ' + response.message;
-						resultLabel.className = 'text_error';
-						dismiss = false;
-					}
-					
-					passwordInput.value = '';
-					if (dismiss)
-					{
-						setTimeout (signin_modal.close, 1500);
-					}
-				});
-			}
-		}
-	};
-	
-	// ---------------------------------------------------------------------- signup_button_click ()
-	
-	function signup_button_click ()
-	{
-		var usernameLabel = document.getElementById ('signup_username_label');
-		var usernameInput = document.getElementById ('signup_username_input');
-		var passwordLabel = document.getElementById ('signup_password_label');
-		var passwordInput = document.getElementById ('signup_password_input');
-		var password2Label = document.getElementById ('signup_password2_label');
-		var password2Input = document.getElementById ('signup_password2_input');
-		var resultLabel = document.getElementById ('signup_result_label');
-		var failMessage;
-		
-		// Reset to default (non-error) state.
-		usernameLabel.innerHTML = 'Name:';
-		usernameLabel.className = 'modal_text';
-		passwordLabel.innerHTML = 'Password:';
-		passwordLabel.className = 'modal_text';
-		password2Label.innerHTML = 'Password:';
-		password2Label.className = 'modal_text';
-		resultLabel.innerHTML = '';
-		resultLabel.className = 'modal_text';
-		
-		failMessage = validateUsername (usernameInput.value);
-		if (failMessage)
-		{
-			// Display as error.
-			usernameLabel.innerHTML = failMessage;
-			usernameLabel.className = 'text_error';
-		}
-		else
-		{
-			// Display as correct.
-			usernameLabel.innerHTML = 'Choose the name you will use on Kardland:';
-			usernameLabel.className = 'modal_text';
-			
-			failMessage = validatePassword (passwordInput.value);
-			if (failMessage)
-			{
-				// Display as error.
-				passwordLabel.innerHTML = failMessage;
-				passwordLabel.className = 'text_error';
-				passwordInput.value = '';
-				password2Input.value = '';
-			}
-			else
-			{
-				// Display as correct.
-				passwordLabel.innerHTML = 'Choose a password so that we will know it is you.';
-				passwordLabel.className = 'modal_text';
-				
-				if (passwordInput.value != password2Input.value)
-				{
-					// Display as error.
-					password2Label.innerHTML = 'The two passwords you entered do not match.';
-					password2Label.className = 'text_error';
-					passwordInput.value = '';
-					password2Input.value = '';
-				}
-				else
-				{
-					// Display as correct.
-					password2Label.innerHTML = 'Enter your password again to confirm.';
-					password2Label.className = 'modal_text';
-					
-					// Attempt to log in to account.
-					create_new_account (usernameInput.value, passwordInput.value, function (response, message)
-					{
-						if (response.loggedin)
-						{
-							display_username ();
-							resultLabel.innerHTML = 'Welcome, ' + sessionStorage.getItem ('username');
-							resultLabel.className = 'modal_text';
-						}
-						else
-						{
-							if (response)
-							{
-								resultLabel.innerHTML = response.message;
-							}
-							else
-							{
-								resultLabel.innerHTML = 'Error signing in: ' + message;
-							}
-							
-							resultLabel.className = 'text_error';
-						}
-						
-						passwordInput.value = '';
-						password2Input.value = '';
-						
-						setTimeout (signup_modal.close, 1500);
-					});
-				}
-			}
-		}
-	};
-	
-	// ----------------------------------------------------------------------------- signup_click ()
-	
-	function signup_click ()
-	{
-		document.getElementById ('signup_modal').style.display = "block";
-	};
-	
-	// ------------------------------------------------------------------------- display_username ()
-	
-	function display_username ()
-	{
-		document.getElementById ('signin_block').style.display = 'none';
-		var welcomeSpan = document.getElementById ('welcome_block');
-		welcomeSpan.style.display = 'inline';
-		welcomeSpan.innerHTML = 'Welcome, ' + sessionStorage.getItem ('username');
-	};
 	
 	// -------------------------------------------------------------------------- document.onload ()
 	
-	document.onload = function ()
-	{
-		// Get the width of our play field. Size the 'basement'.
-		size_the_card_table ();
-		size_the_basement ();
-	};
+	// document.onload = function () {
+	 	// Get the width of our play field. Size the 'basement'.
+	// 	size_the_card_table ();
+	// 	size_the_basement ();
+	// }
 	
 	// ---------------------------------------------------------------------------- window.onload ()
 	
-	window.onload = function ()
-	{
+	window.onload = function () {
 		var element;
-		var username = sessionStorage.getItem ('username');
 		
 		// Get the width of our play field. Size the 'basement'.
 		size_the_card_table ();
@@ -1229,38 +772,16 @@
 		element.onclick = deal_button_click;
 		
 		// Handle window resize events.
-	    if (window.addEventListener)
-		{
+	    if (window.addEventListener) {
 	        window.addEventListener ('resize', window_resized, false);
-	    }
-		else if (window.attachEvent)
-		{
+	    } else if (window.attachEvent) {
 	        window.attachEvent ('onresize', window_resized);
-	    } 
-		else
-		{
+	    } else {
 	        window['onresize'] = window_resized;
 	    }
 		
-		// Prepare 'Sign In' modal window.
-		signin_modal = prepare_modal_window ('signin_modal', 'signin_close');
-		
-		// Assign function to 'Sign In' link.
-		document.getElementById ('sign_in_link').onclick = signin_click;
-		
-		// Prepare 'Sign Up' modal window.
-		signup_modal = prepare_modal_window ('signup_modal', 'signup_close');
-		
-		// Assign function to 'Sign Up' link.
-		document.getElementById ('sign_up_link').onclick = signup_click;
-		
 		// Prepare 'Game Over' modal window.
 		gameover_modal = prepare_modal_window ('gameover_modal', 'gameover_close');
-		
-		if (sessionStorage.getItem ('username'))
-		{
-			display_username ();
-		}
 		
 		// Layout the Klondike table.
 		layoutTable ();
@@ -1274,7 +795,7 @@
  		table.animationComplete = animationComplete;
 		
 		begin_game (null);
-	};
+	}
 	
 	</script>
 	
@@ -1289,9 +810,9 @@
 			<img src="images/info_scroll.svg" width="100" id="info_scroll" draggable="false">
 		</div>
 		
-		<div id="header">
+		<!-- <div id="header">
 			<p class="account_verbage"><span id="welcome_block" style="display:none;">Welcome, Guest</span><span id="signin_block"><a href="#" id="sign_in_link">Sign In</a> | <a href="#" id="sign_up_link">Sign Up</a></span></p>
-		</div>
+		</div> -->
 		
 		<div id="field" class="unselectable" style="background:url(images/KlondikeLabel.svg) bottom right no-repeat">
 		</div>
@@ -1337,50 +858,6 @@
 			<p class="modal_text" style="text-align:center;">Klondike (3 card deal) games won: <span class="modal_text" id="gameover_won">0</span></p>
 			<br>
 			<p class="modal_text">Thank you for visiting Kardland and playing our solitaire. I hope you are having fun.</p>
-		</div>
-	</div>
-	
-	<!-- Sign In Modal Window -->
-	<div id="signin_modal" class="modal">
-		<div class="modal-content" style="width:320px;">
-			<span class="close_modal" id="signin_close">&times;</span>
-			<img src="images/KardLandLogoHorizontal.svg" width="200" style="display:block; margin-left:auto; margin-right:auto; margin-top:8px; padding:8px;">
-				<p class="modal_text">Sign in with the name and password you registered with.</p>
-				<p id="signin_username_label" class="modal_text" style="margin-top:8px;">Name:</p>
-				<div class="text_input">
-					<input type="text" name="signin_username_data" placeholder="Your Name" id="signin_username_input" style="margin-left:27px;">
-				</div>
-				<p id="signin_password_label" class="modal_text" style="margin-top:8px;">Password:</p>
-				<div class="text_input">
-					<input type="password" name="signin_password_data" placeholder="Password" id="signin_password_input" style="margin-left:27px;">
-				</div>
-				<br>
-				<p id="signin_result_label" class="modal_text" style="text-align:center; margin-bottom:20px;"></p>
-				<span id="signin_button" class="pillbutton unselectable" onclick="signin_button_click()" style="width:80px;">Sign In</span>
-		</div>
-	</div>
-	
-	<!-- Sign Up Modal Window -->
-	<div id="signup_modal" class="modal">
-		<div class="modal-content" style="width:400px;">
-			<span class="close_modal" id="signup_close">&times;</span>
-			<img src="images/KardLandLogoHorizontal.svg" width="200" style="display:block; margin-left:auto; margin-right:auto; margin-top:8px; padding:8px;">
-				<p class="modal_text">Signing up takes just a minute. Your account will allow Kardland to keep a record of the games you've played and won.</p>
-				<p id="signup_username_label" class="modal_text" style="margin-top:8px;">Choose the name you will use on Kardland:</p>
-				<div class="text_input">
-					<input type="text" name="signup_username_data" placeholder="Your Name" id="signup_username_input" style="margin-left:27px;">
-				</div>
-				<p id="signup_password_label" class="modal_text" style="margin-top:8px;">Choose a password so that we will know it is you.</p>
-				<div class="text_input">
-					<input type="password" name="signup_password_data" placeholder="Password" id="signup_password_input" style="margin-left:27px;">
-				</div>
-				<p id="signup_password2_label" class="modal_text" style="margin-top:8px;">Enter your password again to confirm.</p>
-				<div class="text_input">
-					<input type="password" name="signup_password2_data" placeholder="Password" maxlength="12" id="signup_password2_input" style="margin-left:27px;">
-				</div>
-				<br>
-				<p id="signup_result_label" class="modal_text" style="text-align:center; margin-bottom:20px;"></p>
-				<span id="signup_button" class="pillbutton unselectable" onclick="signup_button_click()" style="width:80px;">Sign Up</span>
 		</div>
 	</div>
 	

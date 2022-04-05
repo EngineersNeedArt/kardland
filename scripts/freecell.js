@@ -33,7 +33,7 @@ function layoutTable () {
 	table.addNewStack ('COL6', 'COLUMN', 6.0, 1.15, 0.0, 0.3);
 	table.addNewStack ('COL7', 'COLUMN', 7.2, 1.15, 0.0, 0.3);
 	table.addNewStack ('COL8', 'COLUMN', 8.4, 1.15, 0.0, 0.3);
-};
+}
 
 // ------------------------------------------------------------------------------ dealInitialHand ()
 
@@ -54,7 +54,7 @@ function dealInitialHand (cards) {
 	table.dealCardToStack (cards.shift (), table.stackWithIdentifier ('COL2'));
 	table.dealCardToStack (cards.shift (), table.stackWithIdentifier ('COL3'));
 	table.dealCardToStack (cards.shift (), table.stackWithIdentifier ('COL4'));
-};
+}
 
 // --------------------------------------------------------------------------- wasCardAutoPutAway ()
 
@@ -69,7 +69,7 @@ function wasCardAutoPutAway (card) {
 	}
 	
 	return putAway;
-};
+}
 
 // ------------------------------------------------------------------- indicateCardWasAutoPutAway ()
 
@@ -77,7 +77,7 @@ function indicateCardWasAutoPutAway (card) {
 	if (!wasCardAutoPutAway (card)) {
 		autoPutAwayCards.push (card);
 	}
-};
+}
 
 // ------------------------------------------------------------------------ showColumnPlaceholder ()
 
@@ -99,7 +99,7 @@ function showColumnPlaceholder (columnStacks, placeholder, exceptStack) {
 			}
 		}
 	}
-};
+}
 
 // ------------------------------------------------------------------------------ cardsAreOrdered ()
 
@@ -129,7 +129,7 @@ function cardsAreOrdered (stack, startingAtIndex) {
 	}
 	
 	return ordered;
-};
+}
 
 // ------------------------------------------------------------------------- canDragCardFromStack ()
 
@@ -138,7 +138,7 @@ var dragRestrictions = {
 	NONE: 0,
 	EMPTYCOLUMNONLY: 1,
 	DISALLOWEMPTYCOLUMN: 2
-};
+}
 
 function canDragCardFromStack (card, stack) {
 	"use strict";
@@ -240,7 +240,7 @@ function canDragCardFromStack (card, stack) {
 	}
 	
 	return canDrag;
-};
+}
 
 // ------------------------------------------------------------------ foundationAndCardSuitsMatch ()
 
@@ -250,7 +250,7 @@ function foundationAndCardSuitsMatch (stack, card) {
 	((stack.identifier === 'CLUBS') && (card.suit === cardSuit.CLUBS)) || 
 	((stack.identifier === 'HEARTS') && (card.suit === cardSuit.HEARTS)) || 
 	((stack.identifier === 'SPADES') && (card.suit === cardSuit.SPADES)));
-};
+}
 
 // ----------------------------------------------------------------- canDragStackFromStackToStack ()
 
@@ -314,7 +314,7 @@ function canDragStackFromStackToStack (stack, srcStack, destStack) {
 	}
 	
 	return canDrag;
-};
+}
 
 // ------------------------------------------------------------------ foundationShouldTakeCardAll ()
 
@@ -343,7 +343,7 @@ function foundationShouldTakeCardAll (card, table) {
 	}
 	
 	return stackToPutAwayTo;
-};
+}
 
 // ---------------------------------------------------------------- foundationShouldTakeCardSmart ()
 
@@ -449,7 +449,7 @@ function foundationShouldTakeCardSmart (card, table) {
 	}
 	
 	return stackToPutAwayTo;
-};
+}
 
 // ----------------------------------------------------------------- determineIfCardsCanBePutAway ()
 
@@ -664,7 +664,7 @@ function cardDoubleClicked (card, stackContaining) {
 		
 		evaluate_table ();
 	}
-};
+}
 
 // --------------------------------------------------------------------- indicate_played_freecell ()
 
@@ -676,7 +676,7 @@ function indicate_played_freecell () {
 	}
 	gamesPlayed += 1;
 	localStorage.setItem ("KARDLAND0_FREECELL_PLAYED", gamesPlayed);
-};
+}
 
 // ------------------------------------------------------------------------ indicate_won_freecell ()
 
@@ -689,7 +689,7 @@ function indicate_won_freecell () {
 	localStorage.setItem ("KARDLAND0_FREECELL_WON", gamesWon);
 	
 	return gamesWon;
-};
+}
 
 // ------------------------------------------------------------------------------ displayGameOver ()
 
@@ -705,7 +705,7 @@ function displayGameOver () {
 	document.getElementById ('gameover_played').innerHTML = gamesPlayed;
 	document.getElementById ('gameover_won').innerHTML = gamesWon;
 	document.getElementById ('gameover_modal').style.display = "block";
-};
+}
 
 // ---------------------------------------------------------------------------- animationComplete ()
 
@@ -733,7 +733,7 @@ function evaluate_if_game_over () {
 	}
 	
 	return gameOver;
-};
+}
 
 // ----------------------------------------------------------------------------- new_button_click ()
 
@@ -749,14 +749,14 @@ function new_button_click () {
 	
 	// Replace 'null' with Microsoft FreeCell game number; only impossible game known: 11982.
 	begin_game (null);
-};
+}
 
 // ---------------------------------------------------------------------------- undo_button_click ()
 
 function undo_button_click () {
 	table.undo ();
 	evaulateUndoState ();
-};
+}
 
 // -------------------------------------------------------------------------- size_the_card_table ()
 
@@ -769,21 +769,21 @@ function size_the_card_table () {
 	} else {
 		table.setCardWidth (111);
 	}
-};
+}
 
 // ---------------------------------------------------------------------------- size_the_basement ()
 
 function size_the_basement () {
 	basement = document.getElementById ("basement");
 	basement.style.top = window.innerHeight + 'px';
-};
+}
 
 // ------------------------------------------------------------------------------- window_resized ()
 
 function window_resized () {
 	size_the_card_table ();
 	size_the_basement ();
-};
+}
 
 // ------------------------------------------------------------------------------- evaluate_table ()
 
@@ -791,7 +791,7 @@ function evaluate_table () {
 	determineIfCardsCanBePutAway (table);
 	evaulateUndoState ();
 	gameOver = evaluate_if_game_over ();
-};
+}
 
 // ----------------------------------------------------------------------------------- begin_game ()
 
@@ -845,4 +845,4 @@ window.onload = function () {
 	// Replace 'null' with Microsoft FreeCell game number; only impossible game known: 11982.
 	// One of the easiest deals: 11987.
 	begin_game (null);
-};
+}
