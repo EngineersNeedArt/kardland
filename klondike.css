@@ -6,6 +6,18 @@ html, body
 	background: rgb(208	157	97);
 }
 
+a:link
+{
+	text-decoration: none;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+a:visited
+{
+	text-decoration: none;
+    color: rgba(255, 255, 255, 0.5);
+}
+
 #content
 {
 	min-height: 100%;
